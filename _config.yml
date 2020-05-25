@@ -1,7 +1,7 @@
 # Site settings
 title: shaopu Blog
 SEOTitle: 少朴的博客 | shaopu Blog
-header-img: img/head.png
+header-img: img/code.png
 email: songshaopu@gmail.com
 description: "Every failure is leading towards success."
 keyword: "shaopu, shaopu Blog, 少朴的博客, shaopu Song, 宋少朴, C++, C, Python, 机器学习, MATLAB, Mathematica"
@@ -12,7 +12,7 @@ github_repo: "https://github.com/SongShaopu1998/SongShaopu1998.github.io.git" # 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "Be hungry, be foolish."
-sidebar-avatar: /img/code.png      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/head.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
