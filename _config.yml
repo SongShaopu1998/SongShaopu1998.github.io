@@ -61,7 +61,7 @@ gitalk:
   enable: true    #是否开启Gitalk评论
   clientID: bd5bae5b2c000b33966c                          #生成的clientID
   clientSecret: 8960de16e68d945dd2d6026e9cfd68ecaa2670b6    #生成的clientSecret
-  repo: blog-comments    #仓库名称
+  repo: blog-comment    #仓库名称
   owner: SongShaopu1998    #github用户名
   admin: SongShaopu1998
   distractionFreeMode: true #是否启用类似FB的阴影遮罩
