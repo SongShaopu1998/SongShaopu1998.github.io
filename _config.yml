@@ -36,8 +36,7 @@ anchorjs: true                          # if you want to customize anchor. check
 
 # Gems
 # from PR#40, to support local preview for Jekyll 3.0
-gems: [jekyll-paginate]
-
+# gems: [jekyll-paginate]
 
 
 
@@ -90,3 +89,5 @@ featured-condition-size: 0              # 相同标签数量大于这个数，�
 # Progressive Web Apps
 chrome-tab-theme-color: "#000000"
 service-worker: true
+
+gems: [jekyll-paginate]
