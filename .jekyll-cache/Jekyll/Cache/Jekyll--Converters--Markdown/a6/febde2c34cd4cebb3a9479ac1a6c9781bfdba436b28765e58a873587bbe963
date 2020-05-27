@@ -1,4 +1,4 @@
-I"�n<h1 id="匿名函数lambda用法总结">匿名函数lambda用法总结</h1>
+I".r<h1 id="匿名函数lambda用法总结">匿名函数lambda用法总结</h1>
 
 <p>既然lambda被称为匿名函数，那么我们只需要把握一点，即我们可以用
 函数的观点来理解lambda的书写和调用方式,它返回的是一个函数对象。</p>
@@ -91,19 +91,15 @@
     <span class="k">return</span> <span class="n">i</span><span class="o">+</span><span class="mi">10</span>
 
 <span class="k">print</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">plus</span><span class="p">,</span><span class="n">a</span><span class="p">))</span>        
-
 <span class="c1">#计算列表a中各个元素，返回一个迭代器
 </span>
 <span class="k">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">plus</span><span class="p">,</span><span class="n">a</span><span class="p">)))</span>  
-
 <span class="c1">#以列表形式返回映射后的结果
 </span>
 <span class="k">print</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="n">a</span><span class="p">))</span>      
-
 <span class="c1">#使用lambda匿名函数，返回一个迭代器
 </span>
 <span class="k">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="n">a</span><span class="p">)))</span> 
-
 <span class="c1">#以列表形式返回映射后的结果
 </span> 
 <span class="c1"># 运行结果：
@@ -112,11 +108,9 @@
 <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">]</span>
 <span class="o">&lt;</span><span class="nb">map</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x000001D694A89128</span><span class="o">&gt;</span>
 <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">]</span>
- 
 <span class="c1"># 提供了两个列表，对相同位置的列表数据进行相加
 </span>
 <span class="k">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">])))</span>
- 
 <span class="c1"># 运行结果：
 </span>
 <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">19</span><span class="p">]</span>
@@ -136,11 +130,9 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#reduce()递归，两个参数
 </span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="nb">reduce</span>
-<span class="k">print</span><span class="p">(</span><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="n">i</span><span class="o">*</span><span class="n">j</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>   
-<span class="c1">#1*2*3*4*5*6*7*8*9(含左不含右）
+<span class="k">print</span><span class="p">(</span><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="n">i</span><span class="o">*</span><span class="n">j</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>  <span class="c1">#1*2*3*4*5*6*7*8*9(含左不含右）
 </span>
-<span class="k">print</span><span class="p">(</span><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>  
-<span class="c1">#1+2+3+4+5+6+7+8+9
+<span class="k">print</span><span class="p">(</span><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>  <span class="c1">#1+2+3+4+5+6+7+8+9
 </span></code></pre></div></div>
 
 <h5 id="sorted">sorted()</h5>
@@ -157,7 +149,7 @@
 <p>本小节内容参考<a href="https://www.cnblogs.com/liuq/p/6073855.html">https://www.cnblogs.com/liuq/p/6073855.html</a></p>
 
 <ul>
-  <li>f = [lambda x: x*i for i in range(4)]</li>
+  <li><strong>f = [lambda x: x*i for i in range(4)]</strong></li>
 </ul>
 
 <p>这种表达形式等价于：</p>
@@ -200,10 +192,14 @@ i的值为3，并将lam中所用到的i值定为3 ，因此真正调用（例如
 </span></code></pre></div></div>
 <blockquote>
   <p>如果把x换成i，那就与传入的值无关了，始终是3*3</p>
+
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span> <span class="o">=</span> <span class="p">[</span><span class="k">lambda</span> <span class="p">:</span><span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+<span class="c1"># f = [lambda i:i*i for i in range(4)]
+</span></code></pre></div>  </div>
 </blockquote>
 
 <ul>
-  <li>f1 = [lambda i=i: i*i for i in range(4)]</li>
+  <li><strong>f1 = [lambda i=i: i*i for i in range(4)]</strong></li>
 </ul>
 
 <p>这种表达形式等价于：</p>
@@ -218,9 +214,9 @@ i的值为3，并将lam中所用到的i值定为3 ，因此真正调用（例如
     <span class="k">return</span> <span class="n">fs</span>
 </code></pre></div></div>
 <p>当调用 func() 时，每循环一次，将lam函数的地址存到
-fs中。但是在每次循环中lam函数都将i值绑定到了x上，
+fs中。但是在每次循环中lam函数都将i值绑定到了x上，<strong>函数在定义时因为默认参数的存在，就给形参赋上了初值，</strong>
 所以直到循环结束，不同地址的lam函数的x值为都不一样,
-因此真正调用（例如 f<a href="">0</a>）的时候x值都为当时被绑定的值。</p>
+因此真正调用（例如 f[0]）的时候x值都为当时被绑定的值。</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span> <span class="o">=</span> <span class="p">[</span><span class="k">lambda</span> <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">[</span><span class="mi">0</span><span class="p">]()</span>
@@ -235,7 +231,7 @@ fs中。但是在每次循环中lam函数都将i值绑定到了x上，
 <p>这也意味着如果我们给x赋了新值，那么结果也会随之改变。</p>
 
 <ul>
-  <li>f2 = [lambda x=i: i*i for i in range(4)]</li>
+  <li><strong>f2 = [lambda x=i: i*i for i in range(4)]</strong></li>
 </ul>
 
 <p>这种表达形式等价于：</p>
@@ -266,4 +262,6 @@ fs中。但是在每次循环中lam函数都将i值绑定到了x上，
 <span class="o">&gt;&gt;&gt;</span> <span class="n">f2</span><span class="p">[</span><span class="mi">2</span><span class="p">](</span><span class="mi">7</span><span class="p">)</span>
 <span class="mi">9</span>
 </code></pre></div></div>
+
+<p>在之后的讨论中，我们会再看几个稍微复杂的lambda嵌套的例子，并由此引出一个深坑–闭包。</p>
 :ET
