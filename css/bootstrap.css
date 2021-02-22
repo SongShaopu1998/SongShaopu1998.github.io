@@ -5730,11 +5730,11 @@ button.close {
 }
 .modal-open .modal {
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 .modal-dialog {
   position: relative;
-  width: auto;
+  width: hidden;
   margin: 10px;
 }
 .modal-content {
