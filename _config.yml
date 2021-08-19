@@ -25,7 +25,10 @@ github_username:    SongShaopu1998
 # facebook_username:  baiying.qiu.7
 #twitter_username:   qiubaiying
 
-
+# Security
+##
+encrypt:
+    enable: true
 
 
 # Build settings
