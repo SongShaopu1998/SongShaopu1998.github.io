@@ -4,7 +4,7 @@
     "type": "split",
     "children": [
       {
-        "id": "cdc716733d2a24e9",
+        "id": "553b2ca40ed57497",
         "type": "leaf",
         "state": {
           "type": "empty",
@@ -82,7 +82,7 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "cdc716733d2a24e9",
+  "active": "553b2ca40ed57497",
   "lastOpenFiles": [
     "_posts/2021-11-07-CS基础课程4.md"
   ]
