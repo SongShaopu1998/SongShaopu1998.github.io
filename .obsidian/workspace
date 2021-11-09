@@ -7,83 +7,81 @@
         "id": "553b2ca40ed57497",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "_posts/2021-11-07-CS基础课程4.md",
+            "mode": "source"
+          }
         }
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "d7ca20c3112913ea",
-    "type": "split",
+    "id": "51fce1fba7732147",
+    "type": "mobile-drawer",
     "children": [
       {
-        "id": "0751a79442d45b10",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "462d9c00a97c0fcd",
-            "type": "leaf",
-            "state": {
-              "type": "file-explorer",
-              "state": {}
-            }
-          },
-          {
-            "id": "2bd19d442275691e",
-            "type": "leaf",
-            "state": {
-              "type": "search",
-              "state": {
-                "query": "",
-                "matchingCase": false,
-                "explainSearch": false,
-                "collapseAll": false,
-                "extraContext": false,
-                "sortOrder": "alphabetical"
-              }
-            }
+        "id": "9bf30e68c9bed005",
+        "type": "leaf",
+        "state": {
+          "type": "file-explorer",
+          "state": {}
+        }
+      },
+      {
+        "id": "895e12b13d00bfe8",
+        "type": "leaf",
+        "state": {
+          "type": "search",
+          "state": {
+            "query": "",
+            "matchingCase": false,
+            "explainSearch": false,
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical"
           }
-        ]
+        }
+      },
+      {
+        "id": "d87d19c385162bb6",
+        "type": "leaf",
+        "state": {
+          "type": "starred",
+          "state": {}
+        }
       }
     ],
-    "direction": "horizontal",
-    "width": 300
+    "currentTab": 0
   },
   "right": {
-    "id": "ab1ab75c058b58fc",
-    "type": "split",
+    "id": "c2e600b04bed5ff2",
+    "type": "mobile-drawer",
     "children": [
       {
-        "id": "e45a3693c01c73b3",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "109edee3dbe14077",
-            "type": "leaf",
-            "state": {
-              "type": "backlink",
-              "state": {
-                "collapseAll": false,
-                "extraContext": false,
-                "sortOrder": "alphabetical",
-                "showSearch": false,
-                "searchQuery": "",
-                "backlinkCollapsed": false,
-                "unlinkedCollapsed": true
-              }
-            }
+        "id": "2e49ed69e3bf645b",
+        "type": "leaf",
+        "state": {
+          "type": "backlink",
+          "state": {
+            "file": "_posts/2021-11-07-CS基础课程4.md",
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical",
+            "showSearch": false,
+            "searchQuery": "",
+            "backlinkCollapsed": false,
+            "unlinkedCollapsed": true
           }
-        ]
+        }
       }
     ],
-    "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "currentTab": 0
   },
   "active": "553b2ca40ed57497",
   "lastOpenFiles": [
-    "_posts/2021-11-07-CS基础课程4.md"
+    "_posts/2021-11-07-CS基础课程4.md",
+    "_posts/2021-9-05-CS基础课程3.md"
   ]
 }
