@@ -1,0 +1,373 @@
+I"/U<h1 id="lecture-1">Lecture 1</h1>
+
+<h2 id="编译过程">编译过程</h2>
+
+<p>我们有许多编译器可以选择，比如<code class="language-plaintext highlighter-rouge">clang, g++</code>等等，如果我们想要编译的是<code class="language-plaintext highlighter-rouge">C</code>文件，那么可以使用<code class="language-plaintext highlighter-rouge">gcc</code>。编译过程包括：首先预处理，转换为<code class="language-plaintext highlighter-rouge">.i</code>文件，这一步需要展开所有的宏定义、预编译<code class="language-plaintext highlighter-rouge">#include</code>命令、删除注释等等；之后把文件内容进行<strong>词法分析、语法分析</strong>，转化为<strong>汇编语言</strong>，即<code class="language-plaintext highlighter-rouge">.s</code>文件；第三步为了让机器读取代码，还需要转化为<strong>机器语言</strong>，即二进制代码（也是所说的库）-<code class="language-plaintext highlighter-rouge">.o</code>文件，最后链接目标代码，生成<strong>可执行文件</strong>.</p>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/20210731111340.png" alt="image-20210731111340507" style="zoom:50%;" /></p>
+
+<ol>
+  <li>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>clang++ <span class="nt">-E</span> main.cpp
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>clang++ <span class="nt">-S</span> main.i
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>clang++ <span class="nt">-c</span> main.s
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>clang++ main.o <span class="nt">-o</span> main
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/20210731112408.png" alt="image-20210731112408724" style="zoom:50%;" /></p>
+
+<blockquote>
+  <p>优化主要包含进行跳转和延迟退栈两种优化，<code class="language-plaintext highlighter-rouge">O~</code>选项将使编译速度减慢，但是通常产生的代码执行速度会更快</p>
+</blockquote>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">-Wall</code>表示打印出警告信息，如果要关闭所有警告信息，使用<code class="language-plaintext highlighter-rouge">-w</code></p>
+</blockquote>
+
+<h3 id="libraries">Libraries</h3>
+
+<ul>
+  <li>library是什么？</li>
+</ul>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/20210731112926.png" alt="image-20210731112926554" style="zoom:50%;" /></p>
+
+<p>在编译时，如果将函数的定义也放在头文件内，将会导致运行变慢，因为没有使用linker，每次调用都会直接使用定义在其中的函数。</p>
+
+<h3 id="link-library">link library</h3>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/20210731125102.png" alt="image-20210731125102493" style="zoom:50%;" /></p>
+
+<p>出现该错误的原因是我们在主函数文件<code class="language-plaintext highlighter-rouge">program.cpp</code>中包含的是<code class="language-plaintext highlighter-rouge">tools.hpp</code>，也就是说程序完全不知道到哪里去寻找函数<code class="language-plaintext highlighter-rouge">SomeFunc()</code>的实现，他只知道存在这个函数（该函数的实现被我们放在<code class="language-plaintext highlighter-rouge">tools.cpp</code>中，但是我们没有告诉编译器这一点）。</p>
+
+<p>所以我们要做的是：先让编译器生成一个<code class="language-plaintext highlighter-rouge">tools</code>库；之后要把<code class="language-plaintext highlighter-rouge">tools</code>和<code class="language-plaintext highlighter-rouge">program</code>链接起来，这样当<code class="language-plaintext highlighter-rouge">program.cpp</code>中找到<code class="language-plaintext highlighter-rouge">tools.h</code>时，也就知道其中函数<code class="language-plaintext highlighter-rouge">SomeFunc()</code>的实现被放在哪里了。</p>
+
+<p>对于这种较为简单的情形，我们可以做如下操作：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 生成tools.o库文件（第三步：编译）</span>
+g++ <span class="nt">--std</span><span class="o">=</span>c++17 <span class="nt">-Wall</span> <span class="nt">-O0</span> tools.cpp <span class="nt">-c</span>
+
+<span class="c"># 生成main.o库文件（第三步：编译）</span>
+g++ <span class="nt">--std</span><span class="o">=</span>c++17 <span class="nt">-Wall</span> <span class="nt">-O0</span> main.cpp <span class="nt">-c</span>
+
+<span class="c">#链接两者！</span>
+g++ <span class="nt">--std</span><span class="o">=</span>c++17 <span class="nt">-Wall</span> <span class="nt">-O0</span> main.o tools.o <span class="nt">-o</span> main
+</code></pre></div></div>
+
+<p>在做链接时，需要注意<strong>越是底层的库，被依赖的项，越往后边写</strong>。</p>
+
+<p><strong>当然，我们也可以在主程序直接包含<code class="language-plaintext highlighter-rouge">tools.cpp</code>，可以直接一步用<code class="language-plaintext highlighter-rouge">-o</code>搞定，不需要单独链接库了，但这不是一种好的方法</strong>。</p>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/20210731131645.png" alt="image-20210731131645773" style="zoom:50%;" /></p>
+
+<p>也就是说，在<code class="language-plaintext highlighter-rouge">linking</code>时，会<strong>将函数声明定位到它的已经经过编译的实现上</strong>。而为了完成这一点，我们需要的<code class="language-plaintext highlighter-rouge">library</code>需要包括两个部分：</p>
+
+<ul>
+  <li>一个包含声明的头文件</li>
+  <li>经过编译的二进制代码库函数实现</li>
+</ul>
+
+<h3 id="how-to-build-libraries">How to build libraries</h3>
+
+<p>现在的情况是我们<strong>自己定义了库文件</strong>，并将库文件中的函数声明在头文件中：</p>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/20210731135146.png" alt="image-20210731135146844" style="zoom:50%;" /></p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">-L</code>参数用来指定程序要链接的库，<code class="language-plaintext highlighter-rouge">-l</code>参数紧接着就是库名</p>
+</blockquote>
+
+<p>首先将库文件编译为一个<code class="language-plaintext highlighter-rouge">object file</code>，这一步对应着C++文件编译过程中的<strong>第三步</strong>，<strong>将文件转化为二进制代码</strong>；之后将其<strong>打包组合建立一个静态库</strong>(<code class="language-plaintext highlighter-rouge">ar rcs</code>)，后边的<code class="language-plaintext highlighter-rouge">.</code>表示库所在位置，库里边是<code class="language-plaintext highlighter-rouge">binary code</code>，接下来把库<strong>链接</strong>到<code class="language-plaintext highlighter-rouge">main</code>文件里，即告知程序<code class="language-plaintext highlighter-rouge">function/symbol</code>的位置。</p>
+
+<p>我们也可以用这种方法对上边的<code class="language-plaintext highlighter-rouge">program&amp;tools</code>案例进行测试，结果是一样的，只不过我们先把两个<code class="language-plaintext highlighter-rouge">.o</code>文件打包成了静态链接库而已：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 打包成静态链接库</span>
+ar rcs libtools.a main.o tools.o
+
+<span class="c"># linking</span>
+g++ <span class="nt">--std</span><span class="o">=</span>c++17 main.cpp <span class="nt">-L</span> <span class="nb">.</span> <span class="nt">-ltools</span> <span class="nt">-o</span> main_1
+</code></pre></div></div>
+
+<h3 id="build-systems">Build systems</h3>
+
+<p>发展历程：</p>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/20210731140111.png" alt="image-20210731140111783" style="zoom:50%;" /></p>
+
+<blockquote>
+  <p>Cmake是一个<em>MetaBuild System</em>，通过我们写好的CMakeLists.txt生成makefile，系统会根据makefile当中的指令去编译和链接程序</p>
+</blockquote>
+
+<h2 id="cmake使用">cmake使用</h2>
+
+<p>cmake的教程可以参考：</p>
+
+<p>https://github.com/ttroy50/cmake-examples</p>
+
+<p>cmake的官方文档写的有些过于晦涩，这个教程相对清晰明了，先掌握一些cmake的基本用法即可。</p>
+
+<p>本节课作业中的内容对应着该GitHub教程的<code class="language-plaintext highlighter-rouge">01-Basic</code>和<code class="language-plaintext highlighter-rouge">02-sub-project</code>的部分内容。</p>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/20210731140139.png" alt="image-20210731140139832" style="zoom:50%;" /></p>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/20210731140345.png" alt="image-20210731140345122" style="zoom:50%;" /></p>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/20210731140947.png" alt="image-20210731140947572" style="zoom:50%;" /></p>
+
+<h2 id="git的使用">Git的使用</h2>
+
+<p><strong>Git</strong>的命令介绍可以参考：https://www.runoob.com/git/git-basic-operations.html</p>
+
+<h3 id="本地仓库">本地仓库</h3>
+
+<p>在学习<strong>Git</strong>过程中遇到的几个简易命令：</p>
+
+<ul>
+  <li>工作区、暂存区、版本库(<code class="language-plaintext highlighter-rouge">.git</code>)</li>
+</ul>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/202111061825173.jpeg" alt="git-repo" style="zoom: 80%;" /></p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">checkout</code>被替换</li>
+</ol>
+
+<p>在创建或者切换分支时，使用<code class="language-plaintext highlighter-rouge">switch</code>命令代替：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 切换分支</span>
+git switch newBranch
+
+<span class="c"># 创建分支</span>
+git switch <span class="nt">-c</span> newBranch
+</code></pre></div></div>
+
+<p>在恢复文件内容时，使用<code class="language-plaintext highlighter-rouge">restore</code>命令代替：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 从版本库舍弃工作区(working tree)修改（或者从版本库恢复工作区文件）</span>
+git restore readme.txt
+
+<span class="c"># 从index(stage)恢复working tree</span>
+git restore <span class="nt">--worktree</span> readme.txt
+
+<span class="c"># 从版本库master恢复暂存区(stage/index)</span>
+git restore <span class="nt">--stage</span> readme.txt
+
+<span class="c"># 从版本库master同时恢复工作区与暂存区</span>
+git restore <span class="nt">--source</span><span class="o">=</span>HEAD <span class="nt">--staged</span> <span class="nt">--worktree</span> readme.txt
+</code></pre></div></div>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">reset</code>用于<strong>版本回退</strong>+<strong>撤销修改</strong></li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 版本回退(已经提交到了本地版本库内)</span>
+<span class="c"># HEAD/HEAD^^/HEAD~100/commit-id</span>
+git reset <span class="nt">--hard</span> HEAD^
+
+<span class="c"># 使用reflog查看commit-id</span>
+git reflog
+
+<span class="c"># unstage(撤销暂存区修改)</span>
+git reset HEAD readme.txt
+</code></pre></div></div>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">diff</code>的使用</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 比较working tree &amp; stage</span>
+git diff readme.txt
+
+<span class="c"># 比较暂存区与版本库</span>
+git diff <span class="nt">--cached</span> readme.txt
+
+<span class="c"># 比较工作区与版本库</span>
+<span class="c"># HEAD如果指向master分支，也可以换成master</span>
+<span class="c"># HEAD也可以写作某个commit-id</span>
+git diff HEAD readme.txt
+
+<span class="c"># 同理，我们可以比较暂存区与某个指定的commit-id</span>
+git diff <span class="nt">--cached</span> <span class="o">[</span>&lt;commit-id&gt;] readme.txt
+
+<span class="c"># 或者比较两个commit-id的差异</span>
+git diff <span class="o">[</span>&lt;commit-id&gt;] <span class="o">[</span>&lt;commit-id&gt;]
+</code></pre></div></div>
+
+<p>此外，<code class="language-plaintext highlighter-rouge">git diff</code>还可以用来打补丁（<code class="language-plaintext highlighter-rouge">patch</code>），这里就先不列出具体方法了。</p>
+
+<ol>
+  <li>其余一些基本命令</li>
+</ol>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">git init</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git add</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git commit -m</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git rm</code>(从版本库中删除文件)</li>
+  <li><code class="language-plaintext highlighter-rouge">git tag &lt;tagname&gt;</code>创建标签</li>
+</ul>
+
+<h3 id="远程仓库">远程仓库</h3>
+
+<h4 id="push">push</h4>
+
+<ol>
+  <li>注意一开始要在自己本地生成<code class="language-plaintext highlighter-rouge">SSH Key</code>，这样<code class="language-plaintext highlighter-rouge">Github</code>才允许把远程仓库和本地仓库关联起来并进行后续操作</li>
+  <li>关联本地与远程命令：<code class="language-plaintext highlighter-rouge">git remote add origin git@github.com:michaelliao/learngit.git</code></li>
+</ol>
+
+<blockquote>
+  <p>为什么是<code class="language-plaintext highlighter-rouge">origin</code>？这是远程库的名字，而非仓库本身的名字，对于不同的远程服务器上的同样的仓库，名字应当不同（<code class="language-plaintext highlighter-rouge">server-1</code>,<code class="language-plaintext highlighter-rouge">server-2</code>,<code class="language-plaintext highlighter-rouge">server-3</code>…），一般来说就关联一个远程库，习惯命名为<code class="language-plaintext highlighter-rouge">origin</code>。</p>
+</blockquote>
+
+<ol>
+  <li>第一次推送：<code class="language-plaintext highlighter-rouge">git push -u origin master</code></li>
+</ol>
+
+<blockquote>
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;
+</code></pre></div>  </div>
+
+  <p>遵循<strong>来源地:目的地</strong>，所以<code class="language-plaintext highlighter-rouge">git push</code>命令的顺序是<strong>本地分支:远程分支</strong></p>
+
+  <ul>
+    <li>如果远程分支被省略，则表示将本地分支推送到与之存在<strong>追踪关系</strong>的远程分支。</li>
+    <li>如果本地分支被省略，则表示推送一个空分支，等同于<code class="language-plaintext highlighter-rouge">git push origin --delete master</code>，会将远程主机上的<code class="language-plaintext highlighter-rouge">master</code>分支删除</li>
+    <li>如果当前只有一个追踪分支，则可以简略为<code class="language-plaintext highlighter-rouge">git push</code></li>
+    <li>如果当前分支与多个主机存在追踪关系，则可以使用<code class="language-plaintext highlighter-rouge">-u</code>选项指定一个默认主机，这样后面就可以不加任何参数使用git push</li>
+  </ul>
+</blockquote>
+
+<ol>
+  <li>查看远程库信息：</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote <span class="nt">-v</span>
+</code></pre></div></div>
+
+<ol>
+  <li>解除本地与远程的绑定关系：</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote <span class="nb">rm </span>origin
+</code></pre></div></div>
+
+<h4 id="clone">clone</h4>
+
+<h3 id="分支管理">分支管理</h3>
+
+<p>参看廖雪峰老师的教程，这部分写的很清楚：https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424</p>
+
+<ol>
+  <li>注意我们可能需要处理<strong>分支冲突</strong>，解决方法也很简单，我们只要让某个分支领先于另一个分支即可，这样一来便会直接使用<code class="language-plaintext highlighter-rouge">fast-forward</code>模式进行合并</li>
+  <li>同时，我们不应该做回退分支合并，即不能让一个最新的提交往回合并（这其实也是没有意义的）</li>
+  <li>分支相关操作：</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 合并dev分支</span>
+git merge dev
+
+<span class="c"># 查看分支结构</span>
+git branch
+
+<span class="c"># 删除分支</span>
+git branch <span class="nt">-d</span> dev
+
+<span class="c"># 强制删除分支（该分支可能还未被merge）</span>
+git branch <span class="nt">-D</span> dev
+
+<span class="c"># 创建分支</span>
+git switch <span class="nt">-c</span> dev
+
+<span class="c"># 进入分支</span>
+git switch dev
+
+<span class="c"># 查看分支合并图</span>
+git log <span class="nt">--graph</span> <span class="nt">--pretty</span><span class="o">=</span>oneline <span class="nt">--abbrev-commit</span>
+
+<span class="c"># 保留分支结构(普通模式)，合并</span>
+git merge <span class="nt">--no-ff</span> <span class="nt">-m</span> <span class="s2">"merge with no-ff"</span> dev
+</code></pre></div></div>
+
+<p>当我们使用<strong>普通模式</strong>进行合并时，代码结构如下：</p>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/202111062303336.png" alt="git-no-ff-mode" style="zoom:80%;" /></p>
+
+<ol>
+  <li><strong>Bug</strong>分支</li>
+</ol>
+
+<p>引入一个新命令：<code class="language-plaintext highlighter-rouge">stash</code>，作用如下：</p>
+
+<blockquote>
+  <p>Using the git stash command, developers can temporarily shelve changes made in the working directory. It allows them to quickly switch contexts when they are not quite ready to commit changes. And it allows them to more easily switch between branches.</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 在当前分支下，储存现场，使得git status为空，工作区是干净的</span>
+git stash
+
+<span class="c"># 查看工作现场储存情况</span>
+git stash list
+
+<span class="c"># 恢复工作现场，但不删除stash内容</span>
+git stash apply
+
+<span class="c"># 删除stash内容</span>
+git stash drop
+
+<span class="c"># 同时完成以上两项操作</span>
+git stash pop
+</code></pre></div></div>
+
+<p>需要注意的是，考虑到原本在<code class="language-plaintext highlighter-rouge">master</code>主分支中存在的bug也在<code class="language-plaintext highlighter-rouge">dev</code>分支中存在，所以我们需要同样修复<code class="language-plaintext highlighter-rouge">dev</code>中相同的问题，可以考虑在<code class="language-plaintext highlighter-rouge">dev</code>分支中<strong>复制修复bug的对应操作的commit-id</strong>，从而避免重复劳动。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git cherry-pick <span class="o">[</span>&lt;commit-id&gt;]
+</code></pre></div></div>
+
+<blockquote>
+  <p>在使用<code class="language-plaintext highlighter-rouge">cherry-pick</code>之前，我们需要先将之前使用<code class="language-plaintext highlighter-rouge">stash</code>暂存起来还没有<code class="language-plaintext highlighter-rouge">commit</code>的内容提交，否则会提示错误：<code class="language-plaintext highlighter-rouge">error: Your local changes to the following files would be overwritten by merge</code></p>
+</blockquote>
+
+<h4 id="多人协作">多人协作</h4>
+
+<p>https://www.liaoxuefeng.com/wiki/896043488029600/900375748016320</p>
+
+<ul>
+  <li>创建本地对应的远程分支：</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git switch <span class="nt">-c</span> dev origin/dev
+</code></pre></div></div>
+
+<ul>
+  <li>多人协作推送流程：</li>
+</ul>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/202111070125878.png" alt="image-20211107012558802" style="zoom:50%;" /></p>
+
+<p>一张大佬制作的<strong>Git</strong>命令图：</p>
+
+<p><a href="https://www.processon.com/view/link/5c6e2755e4b03334b523ffc3">原图作者地址</a></p>
+
+<p><img src="https://shaopu-blog.oss-cn-beijing.aliyuncs.com/img/202111072200435.png" alt="git思维导图" /></p>
+
+<h3 id="其他一些教程">其他一些教程</h3>
+
+<p><a href="https://www.youtube.com/watch?v=hwP7WQkmECE">100秒git介绍</a></p>
+
+<p><a href="https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6">Git官方文档-分支的新建与合并</a></p>
+
+<p><a href="https://www.youtube.com/watch?v=gQSd2lFkZHk">一个更加完整的git视频教程</a></p>
+
+:ET
