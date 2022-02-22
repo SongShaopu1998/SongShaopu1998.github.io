@@ -2,9 +2,9 @@
 layout: home
 ---
 
-Make Jelly site have a GitBook look!
+Welcome, welcome.
 
-## Demo
+<!-- ## Demo
 
 Live demo on Github Pages: [https://sighingnow.github.io/jekyll-gitbook](https://sighingnow.github.io/jekyll-gitbook)
 
@@ -76,4 +76,4 @@ Copyright 2019 Tao He.
 [3]: https://github.com/sighingnow/jekyll-gitbook/fork
 [4]: https://github.com/allejo/jekyll-toc
 [5]: https://github.com/gitbook-plugins/gitbook-plugin-search-pro
-[6]: https://github.com/rouge-ruby/rouge/tree/master/lib/rouge/themes
+[6]: https://github.com/rouge-ruby/rouge/tree/master/lib/rouge/themes -->
