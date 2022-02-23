@@ -2,7 +2,11 @@
 layout: home
 ---
 
-Welcome, welcome.
+> 路漫漫其修远兮，吾将上下而求索。——《离骚》
+>
+> 
+>
+> Long, long had been my road and far, far was the journey; I would go up and down to seek my heart’s desire.
 
 <!-- ## Demo
 
