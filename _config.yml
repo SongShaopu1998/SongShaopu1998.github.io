@@ -13,6 +13,8 @@ url:              'https://SongShaopu1998.github.io'
 baseurl:          ''
 rss:              RSS
 
+github_username:    SongShaopu1998
+
 toc:
   enabled: true
   h_min: 1
