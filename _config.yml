@@ -14,6 +14,7 @@ baseurl:          ''
 rss:              RSS
 
 github_username:    SongShaopu1998
+linkedin_username:  shaopu-song-626062153
 
 toc:
   enabled: true
