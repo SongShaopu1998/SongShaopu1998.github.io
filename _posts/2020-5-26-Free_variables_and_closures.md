@@ -1,7 +1,7 @@
 ---
 layout:		post
-title:		自由变量与闭包
-subtitle:	自由变量与闭包
+title:		Python-自由变量与闭包
+subtitle:	Python-自由变量与闭包
 date:		2020-5-26
 author:		shaopu
 header-img:	img/code.png
