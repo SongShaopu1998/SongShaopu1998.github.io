@@ -19,5 +19,5 @@ The ones I have finished learning (lectures & projects & labs) include:
   - **Stanford CS 106L (Autumn 2019)** ✔️ **Videos** ✔️ **Discs** ✔️ **Assignments (with the 2020 Spring final project version)**
   - **Berkeley CS 61C (Fall 2021)** ✔️ **Videos** ✔️ **Discs** ✔️ **Labs (with Fa20 lab10 & lab11)** ✔️ **Projs (with Fa20 proj4)**
 
-🔭 I’m currently working on **CS 170**, also, **Leetcode** (lol...). And hope to finish learning most of the **CS 15445 (Database)** contents before beginning my graduate study. As for some other great courses such as **CS 162** and **mit 6.024**, I have to reach them later. All the labs/hws/projs I have ever done in these courses are kept as **Private Repositories** on **Github**.
+🔭 I’m currently working on **CS 170**, also, **Leetcode** (lol...). And hope to finish learning most of the **CS 15445 (Database)** contents before beginning my graduate study. As for some other great courses such as **CS 162** and **mit 6.824**, I have to reach them later. All the labs/hws/projs I have ever done in these courses are kept as **Private Repositories** on **Github**.
 
