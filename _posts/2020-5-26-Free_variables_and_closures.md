@@ -2,7 +2,7 @@
 layout:		post
 title:		Python-自由变量与闭包
 subtitle:	Python-自由变量与闭包
-date:		2020-5-26
+date:		2020-5-25
 author:		shaopu
 header-img:	img/code.png
 catalog:	true
