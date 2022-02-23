@@ -52,3 +52,5 @@ regenerate:       true
 plugins:
   - jekyll-feed
   - jemoji
+
+google_analytics: UA-167566752-1
