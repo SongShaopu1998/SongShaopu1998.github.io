@@ -8,9 +8,7 @@ layout: post
 
 My name is Shaopu Song. I'm an incoming EECS M.Eng student at UC Berkeley. Before that, I was an undergraduate student as Southeast University, majoring in Robotics Engineering.
 
-Due to the **COVID-19** pandemic, I chose to defer my enrollment to Berkeley from Fall 2021 to Fall 2022. Another reason of deferral is that I am not so obsessed with what I have learned in the past four years, which includes Machine Learning, Artificial Intelligence, Robotics Vision… Almost all of the time I have spent from my sophomore year to my senior year is using **Python** to implement and then observe the above tricks by leveraging some libraries and NN models. 
-
-So I decided to make some changes. During this deferring period, I learned from some famous Open-source CS courses and try to lay a solid foundation of computer science knowledge including **Data Structures and Algorithms**, **Advanced C++**, **Computer Architecture**…
+Due to the **COVID-19** pandemic, I chose to defer my enrollment to Berkeley from Fall 2021 to Fall 2022. Another reason of deferral is that I am not so obsessed with what I have learned in the past four years. So I decided to make some changes. During this deferring period, I learned from some famous Open-source CS courses and try to lay a solid foundation of computer science knowledge including **Data Structures and Algorithms**, **Advanced C++**, **Computer Architecture**…
 
 The ones I have finished learning (lectures & projects & labs) include: 
   - **Berkeley CS 61A (Fall 2020)** ✔️ **Videos** ✔️ **Discs** ✔️ **Labs** ✔️ **Hws** ✔️ **Projs**
