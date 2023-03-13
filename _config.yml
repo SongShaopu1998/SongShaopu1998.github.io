@@ -3,7 +3,7 @@ title:            Shaopu's Blog
 longtitle:        Some notes of open-source CS courses
 author:           Shaopu Song
 email:            songshaopu1998@gmail.com
-timezone:         America/New_York
+timezone:         Asia/Shanghai
 description: >
   Build Jekyll site with the GitBook style.
 
